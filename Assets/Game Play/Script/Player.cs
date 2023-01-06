@@ -68,7 +68,15 @@ public class Player : MonoBehaviour
             float x = joystick.Horizontal;
             float y = joystick.Vertical;
 
-            transform.position += new Vector3(x, 0f, y) * speed * Time.deltaTime;
+            Vector3 dir = new Vector3(x, 0f, y).normalized;
+
+
+            if (dir.magnitude >= 0.1f)
+            {
+                transform.rotation = Quaternion.LookRotation(dir);
+                transform.position += new Vector3(x, 0f, y) * speed * Time.deltaTime;
+
+            }
 
             if (x != 0 || y != 0)
             {
